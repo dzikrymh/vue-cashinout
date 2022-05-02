@@ -30,8 +30,9 @@
 </template>
 
 <script>
-import axios from 'axios'
 import { reactive } from '@vue/reactivity'
+import store from '@/store'
+import router from '@/router'
 export default {
   setup () {
     const credential = reactive({
@@ -40,11 +41,8 @@ export default {
     })
 
     const login = async () => {
-      await axios.get('sanctum/csrf-cookie')
-      await axios.post('login', credential)
-
-      let response = await axios.get('me')
-      console.log(response.data)
+      await store.dispatch("auth/login", credential)
+      router.replace("/")
     }
 
     return { login, credential }

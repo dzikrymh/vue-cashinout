@@ -11,4 +11,6 @@ axios.interceptors.request.use((config) => {
     return config
 })
 
-createApp(App).use(store).use(router).mount('#app')
+store.dispatch('auth/me').then(() => {
+    createApp(App).use(store).use(router).mount('#app')
+})
